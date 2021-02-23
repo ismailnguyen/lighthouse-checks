@@ -18,12 +18,15 @@ custom: # defines that this can only be triggered manually or by a schedule
     lighthouse-checks:
       - step:
           name: Lighthouse Check
+          deployment: Production # environment where variables are stored into Bitbucket
           image: node:12.13.0
           caches:
             - node
           script:
             - chmod +x lighthouse-checks.sh # make the script executable
             - ./lighthouse-checks.sh $LIGHTHOUSE_URL_TO_CHECK
+          artifacts:
+            - lighthouse-results/**
 ```
 
 Then you can create a schedule inside of Bitbucket pipelines for `lighthouse-checks`.
