@@ -13,9 +13,14 @@ apt-get update
 apt-get install google-chrome-stable -y
 npm i -g @lhci/cli
 
+echo "Start healthcheck of ${1}"
+
 # validate installation
 lhci healthcheck
 
 # collect metrics and assert on them
 lhci collect --url $1
 lhci assert
+
+# move results into result folder
+mv .lighthouseci lighthouse-results
